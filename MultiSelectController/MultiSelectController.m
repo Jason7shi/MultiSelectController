@@ -74,11 +74,11 @@
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-
-    [self.arrSelected removeAllObjects];
-    [self.multiSelectCollectionView reloadData];
-
-    self.delegate = nil;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self.arrSelected removeAllObjects];
+        [self.multiSelectCollectionView reloadData];
+        self.delegate = nil;
+    });
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
